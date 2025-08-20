@@ -1,0 +1,51 @@
+{
+  "name": "financial-review-dashboard",
+  "version": "1.0.0",
+  "description": "Financial Review Management Dashboard - A comprehensive desktop application for managing client household financial reviews",
+  "main": "src/index.html",
+  "scripts": {
+    "tauri": "tauri",
+    "build": "tauri build",
+    "dev": "tauri dev",
+    "build-debug": "tauri build --debug",
+    "bundle": "tauri build --bundles all",
+    "clean": "tauri clean",
+    "info": "tauri info"
+  },
+  "keywords": [
+    "financial",
+    "review",
+    "dashboard",
+    "client-management",
+    "tauri",
+    "desktop-app",
+    "household-management",
+    "financial-advisory"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/financial-review-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/financial-review-dashboard/issues"
+  },
+  "homepage": "https://github.com/yourusername/financial-review-dashboard#readme",
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ]
+}
