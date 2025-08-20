@@ -16,8 +16,6 @@ jobs:
         include:
           - platform: 'macos-latest'
             args: '--target universal-apple-darwin'
-          - platform: 'ubuntu-20.04'
-            args: ''
           - platform: 'windows-latest'
             args: ''
 
@@ -26,22 +24,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
-
       - name: Install ImageMagick (Windows)
         if: matrix.platform == 'windows-latest'
         shell: powershell
         run: |
           choco install imagemagick -y
-
-      - name: Install ImageMagick (Ubuntu)
-        if: matrix.platform == 'ubuntu-20.04'
-        run: |
-          sudo apt-get install -y imagemagick
 
       - name: Create icons directory
         shell: bash
@@ -56,11 +43,6 @@ jobs:
             magick -size 128x128 xc:#2563eb src-tauri/icons/128x128.png
             cp src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
             magick src-tauri/icons/32x32.png src-tauri/icons/icon.ico
-          elif [[ "${{ matrix.platform }}" == "ubuntu-20.04" ]]; then
-            convert -size 32x32 xc:#2563eb src-tauri/icons/32x32.png
-            convert -size 128x128 xc:#2563eb src-tauri/icons/128x128.png
-            cp src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
-            convert src-tauri/icons/32x32.png src-tauri/icons/icon.ico
           else
             echo "Creating icons for macOS..."
             touch src-tauri/icons/32x32.png
