@@ -88,29 +88,14 @@
         "webviewInstallMode": {
           "type": "downloadBootstrapper"
         },
-        "allowDowngrades": false,
-        "wix": {
-          "language": ["en-US"],
-          "template": null
-        },
-        "nsis": {
-          "languages": ["English"],
-          "displayLanguageSelector": false,
-          "installerIcon": "icons/icon.ico",
-          "installMode": "currentUser",
-          "allowDowngrades": false,
-          "deleteAppDataOnUninstall": false
-        }
+        "allowDowngrades": false
       }
     },
     "security": {
       "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https:; media-src 'self' blob:;"
     },
     "updater": {
-      "active": false,
-      "endpoints": [],
-      "dialog": true,
-      "pubkey": ""
+      "active": false
     },
     "windows": [
       {
@@ -129,20 +114,9 @@
         "alwaysOnTop": false,
         "skipTaskbar": false,
         "theme": null,
-        "titleBarStyle": "Visible",
-        "hiddenTitle": false,
-        "acceptFirstMouse": false,
-        "tabbingIdentifier": null,
-        "userAgent": null,
         "fileDropEnabled": true,
         "url": "index.html"
       }
-    ],
-    "systemTray": {
-      "iconPath": "icons/icon.png",
-      "iconAsTemplate": true,
-      "menuOnLeftClick": false,
-      "tooltip": "Financial Review Dashboard"
-    }
+    ]
   }
 }
