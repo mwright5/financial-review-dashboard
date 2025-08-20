@@ -35,37 +35,37 @@ jobs:
       - name: Create icons directory and files
         run: |
           mkdir -p src-tauri/icons
-          # Create a simple 32x32 blue square PNG using ImageMagick or similar
-          # For now, we'll create a minimal ICO file
         shell: bash
 
       - name: Create minimal ICO file (Windows)
         if: matrix.platform == 'windows-latest'
         run: |
-          # Create a minimal 16x16 ICO file
-          echo "AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==" | base64 -d > src-tauri/icons/icon.ico
-        shell: bash
+          echo "AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==" > temp_icon.txt
+          certutil -decode temp_icon.txt src-tauri/icons/icon.ico
+        shell: cmd
 
       - name: Create minimal PNG files
         run: |
-          # Create minimal PNG files - these will be very basic but functional
-          echo "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVFhH7cMBADEAgDAKoL8vTkdLKwcgABHgAAEGAg==" | base64 -d > src-tauri/icons/32x32.png
-          echo "iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVHhe7cMBADEAgDAKoL8vTkdLKwcgABHgAAEGAg==" | base64 -d > src-tauri/icons/128x128.png
-          cp src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+          echo "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVFhH7ZMxDgAgCATh/z9am5gYG1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7OwMxUgHq9N8rCgAAAABJRU5ErkJggg==" > temp_32.txt
+          echo "iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVHhe7cMBADEAwDAKoP2X2jRtKwlgAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKRlAGlgAJBQAOhgABBAQNgAAAAAElFTkSuQmCC" > temp_128.txt
+          if [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
+            certutil -decode temp_32.txt src-tauri/icons/32x32.png
+            certutil -decode temp_128.txt src-tauri/icons/128x128.png
+            copy src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+          else
+            base64 -d temp_32.txt > src-tauri/icons/32x32.png
+            base64 -d temp_128.txt > src-tauri/icons/128x128.png
+            cp src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+          fi
         shell: bash
 
       - name: Create ICNS file (macOS)
         if: matrix.platform == 'macos-latest'
         run: |
-          # Create a minimal ICNS file for macOS
           mkdir -p src-tauri/icons/icon.iconset
           cp src-tauri/icons/32x32.png src-tauri/icons/icon.iconset/icon_32x32.png
           cp src-tauri/icons/128x128.png src-tauri/icons/icon.iconset/icon_128x128.png
-          iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns || echo "iconutil failed, creating dummy file"
-          # If iconutil fails, create a dummy file
-          if [ ! -f src-tauri/icons/icon.icns ]; then
-            echo "dummy icns content" > src-tauri/icons/icon.icns
-          fi
+          iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns 2>/dev/null || echo "dummy icns content" > src-tauri/icons/icon.icns
         shell: bash
 
       - name: Rust setup
