@@ -1,0 +1,388 @@
+/* Theme System - Light and Dark Mode Support */
+
+/* Default Light Theme - Already defined in main CSS */
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --success-color: #10b981;
+    --success-hover: #059669;
+    --warning-color: #f59e0b;
+    --warning-hover: #d97706;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    
+    --bg-primary: #1f2937;
+    --bg-secondary: #111827;
+    --bg-tertiary: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    
+    --border-color: #374151;
+    --border-hover: #4b5563;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+    
+    --segment-black: #374151;
+    --segment-green: #10b981;
+    --segment-yellow: #f59e0b;
+    --segment-red: #ef4444;
+}
+
+/* Dark theme specific overrides */
+[data-theme="dark"] .loading-overlay {
+    background-color: rgba(31, 41, 55, 0.9);
+}
+
+[data-theme="dark"] .modal {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .status-scheduled {
+    background-color: #1e3a8a;
+    color: #93c5fd;
+}
+
+[data-theme="dark"] .status-completed {
+    background-color: #064e3b;
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .status-overdue {
+    background-color: #7f1d1d;
+    color: #fca5a5;
+}
+
+[data-theme="dark"] .chart-container {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .data-table th {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .data-table tbody tr:hover {
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .month-column.drop-target {
+    border-color: var(--primary-color);
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .household-card {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .household-card:hover {
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .person-entry {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover);
+}
+
+/* Theme transition animations */
+* {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* High contrast theme support */
+[data-theme="high-contrast"] {
+    --primary-color: #0000ff;
+    --primary-hover: #0000cc;
+    --success-color: #008000;
+    --success-hover: #006600;
+    --warning-color: #ff8c00;
+    --warning-hover: #ff7700;
+    --danger-color: #ff0000;
+    --danger-hover: #cc0000;
+    
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+    --bg-tertiary: #e0e0e0;
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --text-muted: #333333;
+    
+    --border-color: #000000;
+    --border-hover: #333333;
+}
+
+[data-theme="high-contrast"] .btn-outline {
+    border-width: 2px;
+}
+
+[data-theme="high-contrast"] .household-card,
+[data-theme="high-contrast"] .stat-card,
+[data-theme="high-contrast"] .month-column {
+    border-width: 2px;
+}
+
+[data-theme="high-contrast"] .data-table th,
+[data-theme="high-contrast"] .data-table td {
+    border-bottom-width: 2px;
+}
+
+/* System theme detection */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --primary-color: #3b82f6;
+        --primary-hover: #2563eb;
+        --success-color: #10b981;
+        --success-hover: #059669;
+        --warning-color: #f59e0b;
+        --warning-hover: #d97706;
+        --danger-color: #ef4444;
+        --danger-hover: #dc2626;
+        
+        --bg-primary: #1f2937;
+        --bg-secondary: #111827;
+        --bg-tertiary: #374151;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --text-muted: #9ca3af;
+        
+        --border-color: #374151;
+        --border-hover: #4b5563;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+        
+        --segment-black: #374151;
+        --segment-green: #10b981;
+        --segment-yellow: #f59e0b;
+        --segment-red: #ef4444;
+    }
+
+    :root:not([data-theme]) .loading-overlay {
+        background-color: rgba(31, 41, 55, 0.9);
+    }
+
+    :root:not([data-theme]) .modal {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    :root:not([data-theme]) .status-scheduled {
+        background-color: #1e3a8a;
+        color: #93c5fd;
+    }
+
+    :root:not([data-theme]) .status-completed {
+        background-color: #064e3b;
+        color: #6ee7b7;
+    }
+
+    :root:not([data-theme]) .status-overdue {
+        background-color: #7f1d1d;
+        color: #fca5a5;
+    }
+
+    :root:not([data-theme]) .chart-container {
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-color);
+    }
+
+    :root:not([data-theme]) .data-table th {
+        background-color: var(--bg-primary);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    :root:not([data-theme]) .data-table tbody tr:hover {
+        background-color: var(--bg-tertiary);
+    }
+
+    :root:not([data-theme]) .month-column.drop-target {
+        border-color: var(--primary-color);
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+
+    :root:not([data-theme]) .household-card {
+        background-color: var(--bg-primary);
+        border-color: var(--border-color);
+    }
+
+    :root:not([data-theme]) .household-card:hover {
+        background-color: var(--bg-tertiary);
+    }
+
+    :root:not([data-theme]) .person-entry {
+        background-color: var(--bg-primary);
+    }
+
+    :root:not([data-theme]) ::-webkit-scrollbar-track {
+        background: var(--bg-primary);
+    }
+
+    :root:not([data-theme]) ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+    }
+
+    :root:not([data-theme]) ::-webkit-scrollbar-thumb:hover {
+        background: var(--border-hover);
+    }
+}
+
+/* Theme transition classes for smooth switching */
+.theme-transition * {
+    transition: background-color 0.3s ease !important;
+    transition: border-color 0.3s ease !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Custom theme colors for segments in different themes */
+[data-theme="dark"] .segment-black {
+    background-color: #6b7280;
+}
+
+[data-theme="dark"] .segment-green {
+    background-color: #059669;
+}
+
+[data-theme="dark"] .segment-yellow {
+    background-color: #d97706;
+}
+
+[data-theme="dark"] .segment-red {
+    background-color: #dc2626;
+}
+
+/* Theme-specific chart colors */
+[data-theme="dark"] {
+    --chart-primary: #3b82f6;
+    --chart-success: #10b981;
+    --chart-warning: #f59e0b;
+    --chart-danger: #ef4444;
+    --chart-grid: #374151;
+    --chart-text: #d1d5db;
+}
+
+:root {
+    --chart-primary: #2563eb;
+    --chart-success: #059669;
+    --chart-warning: #d97706;
+    --chart-danger: #dc2626;
+    --chart-grid: #e2e8f0;
+    --chart-text: #64748b;
+}
+
+/* Theme-specific focus styles */
+[data-theme="dark"] .btn:focus-visible,
+[data-theme="dark"] input:focus-visible,
+[data-theme="dark"] select:focus-visible,
+[data-theme="dark"] textarea:focus-visible {
+    outline-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Theme-specific selection styles */
+[data-theme="dark"] ::selection {
+    background-color: var(--primary-color);
+    color: var(--bg-primary);
+}
+
+/* Print mode - force light theme */
+@media print {
+    * {
+        background-color: white !important;
+        color: black !important;
+        border-color: black !important;
+        box-shadow: none !important;
+    }
+    
+    .segment-badge {
+        border: 1px solid black !important;
+        color: black !important;
+        background-color: white !important;
+    }
+    
+    .status-badge {
+        border: 1px solid black !important;
+        color: black !important;
+        background-color: white !important;
+    }
+}
+
+/* Accessibility: Ensure adequate contrast ratios */
+@media (prefers-contrast: high) {
+    [data-theme="dark"] {
+        --text-primary: #ffffff;
+        --text-secondary: #ffffff;
+        --border-color: #ffffff;
+        --bg-secondary: #000000;
+        --bg-tertiary: #333333;
+    }
+    
+    :root {
+        --text-primary: #000000;
+        --text-secondary: #000000;
+        --border-color: #000000;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f0f0f0;
+    }
+}
+
+/* Blue light reduction theme (evening mode) */
+[data-theme="evening"] {
+    --primary-color: #f59e0b;
+    --primary-hover: #d97706;
+    --success-color: #84cc16;
+    --success-hover: #65a30d;
+    --warning-color: #f97316;
+    --warning-hover: #ea580c;
+    --danger-color: #f87171;
+    --danger-hover: #ef4444;
+    
+    --bg-primary: #292524;
+    --bg-secondary: #1c1917;
+    --bg-tertiary: #44403c;
+    --text-primary: #fef3c7;
+    --text-secondary: #fed7aa;
+    --text-muted: #fbbf24;
+    
+    --border-color: #44403c;
+    --border-hover: #57534e;
+}
+
+/* Sepia theme for reduced eye strain */
+[data-theme="sepia"] {
+    --primary-color: #92400e;
+    --primary-hover: #78350f;
+    --success-color: #059669;
+    --success-hover: #047857;
+    --warning-color: #d97706;
+    --warning-hover: #b45309;
+    --danger-color: #dc2626;
+    --danger-hover: #b91c1c;
+    
+    --bg-primary: #fef7ed;
+    --bg-secondary: #fed7aa;
+    --bg-tertiary: #fdba74;
+    --text-primary: #451a03;
+    --text-secondary: #7c2d12;
+    --text-muted: #9a3412;
+    
+    --border-color: #fdba74;
+    --border-hover: #fb923c;
+}
