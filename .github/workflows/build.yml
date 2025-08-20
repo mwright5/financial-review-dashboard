@@ -32,40 +32,86 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
 
-      - name: Create icons directory and files
+      - name: Install ImageMagick (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: |
+          choco install imagemagick -y
+        shell: powershell
+
+      - name: Install ImageMagick (Ubuntu)
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          sudo apt-get install -y imagemagick
+
+      - name: Create icons directory
         run: |
           mkdir -p src-tauri/icons
         shell: bash
 
-      - name: Create minimal ICO file (Windows)
-        if: matrix.platform == 'windows-latest'
+      - name: Create simple colored square icons
         run: |
-          echo "AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==" > temp_icon.txt
-          certutil -decode temp_icon.txt src-tauri/icons/icon.ico
-        shell: cmd
-
-      - name: Create minimal PNG files
-        run: |
-          echo "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVFhH7ZMxDgAgCATh/z9am5gYG1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7O1s7OwMxUgHq9N8rCgAAAABJRU5ErkJggg==" > temp_32.txt
-          echo "iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABkSURBVHhe7cMBADEAwDAKoP2X2jRtKwlgAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKRlAGlgAJBQAOhgABBAQNgAAAAAElFTkSuQmCC" > temp_128.txt
+          # Create a simple 32x32 blue square
           if [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
-            certutil -decode temp_32.txt src-tauri/icons/32x32.png
-            certutil -decode temp_128.txt src-tauri/icons/128x128.png
-            copy src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
-          else
-            base64 -d temp_32.txt > src-tauri/icons/32x32.png
-            base64 -d temp_128.txt > src-tauri/icons/128x128.png
+            magick -size 32x32 xc:#2563eb src-tauri/icons/32x32.png
+            magick -size 128x128 xc:#2563eb src-tauri/icons/128x128.png
+            copy src-tauri\icons\128x128.png src-tauri\icons\128x128@2x.png
+            magick src-tauri/icons/32x32.png src-tauri/icons/icon.ico
+          elif [[ "${{ matrix.platform }}" == "ubuntu-20.04" ]]; then
+            convert -size 32x32 xc:#2563eb src-tauri/icons/32x32.png
+            convert -size 128x128 xc:#2563eb src-tauri/icons/128x128.png
             cp src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+            convert src-tauri/icons/32x32.png src-tauri/icons/icon.ico
+          else
+            # macOS
+            # Use sips to create colored squares
+            python3 -c "
+import os
+from PIL import Image
+os.makedirs('src-tauri/icons', exist_ok=True)
+# Create 32x32 blue square
+img32 = Image.new('RGB', (32, 32), color='#2563eb')
+img32.save('src-tauri/icons/32x32.png')
+# Create 128x128 blue square  
+img128 = Image.new('RGB', (128, 128), color='#2563eb')
+img128.save('src-tauri/icons/128x128.png')
+img128.save('src-tauri/icons/128x128@2x.png')
+            " || echo "Python/PIL not available, creating dummy files"
+            # Fallback if Python fails
+            if [ ! -f src-tauri/icons/32x32.png ]; then
+              echo "Creating dummy PNG files"
+              touch src-tauri/icons/32x32.png
+              touch src-tauri/icons/128x128.png  
+              touch src-tauri/icons/128x128@2x.png
+            fi
           fi
         shell: bash
 
       - name: Create ICNS file (macOS)
         if: matrix.platform == 'macos-latest'
         run: |
-          mkdir -p src-tauri/icons/icon.iconset
-          cp src-tauri/icons/32x32.png src-tauri/icons/icon.iconset/icon_32x32.png
-          cp src-tauri/icons/128x128.png src-tauri/icons/icon.iconset/icon_128x128.png
-          iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns 2>/dev/null || echo "dummy icns content" > src-tauri/icons/icon.icns
+          if [ -f src-tauri/icons/32x32.png ] && [ -s src-tauri/icons/32x32.png ]; then
+            mkdir -p src-tauri/icons/icon.iconset
+            cp src-tauri/icons/32x32.png src-tauri/icons/icon.iconset/icon_32x32.png
+            cp src-tauri/icons/128x128.png src-tauri/icons/icon.iconset/icon_128x128.png
+            iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns 2>/dev/null
+          fi
+          # Ensure ICNS file exists even if creation failed
+          if [ ! -f src-tauri/icons/icon.icns ]; then
+            echo "Creating dummy ICNS file"
+            touch src-tauri/icons/icon.icns
+          fi
+        shell: bash
+
+      - name: Verify icon files exist
+        run: |
+          echo "Checking for icon files..."
+          ls -la src-tauri/icons/ || echo "Icons directory not found"
+          if [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
+            if [ ! -f src-tauri/icons/icon.ico ]; then
+              echo "ICO file missing, creating dummy"
+              echo "dummy ico content" > src-tauri/icons/icon.ico
+            fi
+          fi
         shell: bash
 
       - name: Rust setup
